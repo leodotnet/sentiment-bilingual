@@ -1,0 +1,30 @@
+##Tweet 0 en_BlueRibbonSushi_478218171:0
+Yum	O	110	NONE	110	_	_	_	NN	O
+!	O	000	NONE	000	_	_	_	.	O
+
+##Tweet 1 en_BlueRibbonSushi_478218171:1
+Serves	O	NONE	NONE	NONE	_	_	_	NNS	O
+really	O	11111	NONE	111	_	_	_	RB	O
+good	O	01110	NONE	011	_	THER_SENT_3:positive	_	JJ	O
+sushi	B-FOOD	01111	NONE	011	_	_	positive	NN	B-positive
+.	O	000	NONE	000	_	_	_	.	O
+
+##Tweet 2 en_BlueRibbonSushi_478218171:2
+Not	O	110	NONE	110	_	_	_	RB	O
+the	O	0101	NONE	010	_	_	_	DT	O
+biggest	O	01110	NONE	011	_	_	_	JJS	O
+portions	B-FOOD	0110	NONE	011	_	_	neutral	NNS	B-neutral
+but	O	00110	NONE	001	_	_	_	CC	O
+adequate	O	00101	NONE	001	_	_	_	NN	O
+.	O	000	NONE	000	_	_	_	.	O
+
+##Tweet 3 en_BlueRibbonSushi_478218171:3
+Green	B-FOOD	01111	NONE	011	_	_	positive	JJ	B-positive
+Tea	I-FOOD	01111	NONE	011	_	_	positive	NNP	I-positive
+creme	I-FOOD	00110	NONE	001	_	_	positive	NN	I-positive
+brulee	I-FOOD	NONE	NONE	NONE	_	_	positive	NN	I-positive
+is	O	00111	NONE	001	_	_	_	VBZ	O
+a	O	0100	NONE	010	_	_	_	DT	O
+must	O	11111	NONE	111	_	_	_	MD	O
+!	O	000	NONE	000	_	_	_	.	O
+

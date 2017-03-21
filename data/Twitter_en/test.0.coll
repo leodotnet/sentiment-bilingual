@@ -1,0 +1,11 @@
+##Tweet 0
+Yum	O	110	NONE	110	_	_	_	NN	O
+!	O	000	NONE	000	_	_	_	.	O
+
+##Tweet 1
+Serves	O	NONE	NONE	NONE	_	_	_	NNS	O
+really	O	11111	NONE	111	_	_	_	RB	O
+good	O	01110	NONE	011	_	THER_SENT_3:positive	_	JJ	O
+sushi	B-FOOD	01111	NONE	011	_	_	positive	NN	B-positive
+.	O	000	NONE	000	_	_	_	.	O
+

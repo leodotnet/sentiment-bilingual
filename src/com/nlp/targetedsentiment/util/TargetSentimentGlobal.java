@@ -97,7 +97,7 @@ public class TargetSentimentGlobal {
 		flagSet.add("ALLOW_MIXCASE_EMBEDDING");
 		flagSet.add("APPEND_SUFFIX");
 		
-		//flagSet.add("LANG_DEPENDENT");
+		flagSet.add("SHARE_FEATURES");
 		flagSet.add("ONLY_TARGET_LANG");
 		flagSet.add("USE_UNKNOWN");
 		

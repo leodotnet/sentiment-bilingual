@@ -383,8 +383,8 @@ public class TargetSentimentAlgoModel extends AlgoModel {
 			myFM.allowMixcaseEmbedding = true;
 		else if (flag.equals("ONLY_TARGET_LANG"))
 			p.ONLY_TARGET_LANG = true;
-		else if (flag.equals("LANG_DEPENDENT"))
-			myFM.languageDependent = true;
+		else if (flag.equals("SHARE_FEATURES"))
+			myFM.shareFeatures = true;
 		else if (flag.equals("USE_UNKNOWN"))
 			myFM.useUNK = true;
 			

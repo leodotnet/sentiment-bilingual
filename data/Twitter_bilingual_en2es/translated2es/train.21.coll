@@ -1,0 +1,36 @@
+##Tweet 0 es 
+Marque	O	NONE	NONE	NONE	_	_	_	NNP	O
+esta	O	10011	NONE	100	_	_	_	JJ	O
+salida	O	11000	NONE	110	_	_	_	NN	O
+de	O	11110	NONE	111	_	_	_	IN	O
+vídeo	O	NONE	NONE	NONE	_	_	_	FW	O
+-	O	0000	NONE	000	_	_	_	:	O
+&	O	0000	NONE	000	_	_	_	CC	O
+gt	O	0000	NONE	000	_	_	_	NN	O
+;	O	11111	NONE	111	_	_	_	:	O
+¿Por	O	NONE	NONE	NONE	_	_	_	CC	O
+qué	O	NONE	NONE	NONE	_	_	_	VB	O
+Occidente	O	NONE	NONE	NONE	_	_	_	NNP	O
+está	O	NONE	NONE	NONE	_	_	_	FW	O
+viniendo	O	11010	NONE	110	_	_	_	FW	O
+a	O	11110	NONE	111	_	_	_	DT	O
+la	O	11100	NONE	111	_	_	_	NN	O
+islam	B-VOLITIONAL	11001	NONE	110	_	_	neutral	NN	B-neutral
+?	O	11111	NONE	111	_	_	_	.	O
+-	O	0000	NONE	000	_	_	_	:	O
+Para	O	NONE	NONE	NONE	_	_	_	NN	O
+el	O	11101	NONE	111	_	_	_	VBZ	O
+2-neu-3	O	NONE	NONE	NONE	_	_	_	JJ	O
+UEM	O	NONE	NONE	NONE	_	_	_	NNP	O
+
+##Tweet 1 es 
+Great	B-VOLITIONAL	NONE	NONE	NONE	_	_	positive	JJ	B-positive
+American	I-VOLITIONAL	NONE	NONE	NONE	_	_	positive	JJ	I-positive
+Cookies	I-VOLITIONAL	NONE	NONE	NONE	_	_	positive	NNP	I-positive
+.	O	11111	NONE	111	_	_	_	.	O
+.	O	11111	NONE	111	_	_	_	.	O
+.	O	11111	NONE	111	_	_	_	.	O
+daaaa	O	00111	NONE	001	_	_	_	JJ	O
+mejor	O	11001	NONE	110	_	_	_	NN	O
+!	O	11111	NONE	111	_	_	_	.	O
+

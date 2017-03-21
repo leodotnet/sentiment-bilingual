@@ -34,7 +34,7 @@ public class TargetSentimentFeatureManager extends LinearFeatureManager {
 	
 	public static boolean appendSuffix = false;
 	public static boolean allowMixcaseEmbedding = false;
-	public static boolean languageDependent = false;
+	public static boolean shareFeatures = false;
 	public static boolean useUNK = false;
 	
 
@@ -154,11 +154,11 @@ public class TargetSentimentFeatureManager extends LinearFeatureManager {
 			word_child = input_token[pos_child].getName();
 		
 
-		String lang_dependent = "";
+		String shareFeatures_suffix = "";
 		
-		if (this.languageDependent)
+		if (!this.shareFeatures)
 		{
-			lang_dependent = inst.lang + "_";
+			shareFeatures_suffix = inst.lang + "_";
 		}
 		
 	
@@ -193,9 +193,9 @@ public class TargetSentimentFeatureManager extends LinearFeatureManager {
 			
 			
 			/*
-			 feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Bigram + "-" + word_feature_type , Out, prev_feature + "|||" + current_feature ));
-				feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Trigram + "-" + word_feature_type , Out, prev_feature + "|||" + current_feature + "|||" + next_feature ));
-				feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Fourgram + "-" + word_feature_type , Out, prev_prev_feature + "|||" + prev_feature + "|||" + current_feature + "|||" + next_feature ));
+			 feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Bigram + "-" + word_feature_type , Out, prev_feature + "|||" + current_feature ));
+				feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Trigram + "-" + word_feature_type , Out, prev_feature + "|||" + current_feature + "|||" + next_feature ));
+				feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Fourgram + "-" + word_feature_type , Out, prev_prev_feature + "|||" + prev_feature + "|||" + current_feature + "|||" + next_feature ));
 				
 			 * */
 			
@@ -209,7 +209,7 @@ public class TargetSentimentFeatureManager extends LinearFeatureManager {
 				String NE = Out;
 				
 				//word embedding
-				//feature.add(this._param_g.toFeature(network,  lang_dependent +"<WordEmbeddingonWord>", Out, current.getName()));
+				//feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +"<WordEmbeddingonWord>", Out, current.getName()));
 				WordEmbeddingFeature = current.getName();
 				
 				prefix = "word";
@@ -305,22 +305,22 @@ public class TargetSentimentFeatureManager extends LinearFeatureManager {
 					for (String[] item : featureArr) {
 						//if (item[0].startsWith("word_id"))
 						//System.out.println(Arrays.toString(item));
-						feature.add(this._param_g.toFeature(network,  lang_dependent +item[0] + item[2], Out,  "_link(NE,SENT)"));
+						feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +item[0] + item[2], Out,  "_link(NE,SENT)"));
 						/*
 						if ( item[0].contains("_id_")) //item[0].contains("_sent_") ||
 						{
 							
 							//feature.add(new String[]{item[0] + item[2], "[" + Sent + "]",   "_sent(SENT)" });	
 							//feature.add(new String[]{item[0] + item[2], "[" + NE + "_VOLITIONAL," + Sent + "]",   "_link(NE,SENT)"});
-							//feature.add(this._param_g.toFeature(network,  lang_dependent +item[0] + item[2], "[" + Sent + "]",   "_sent(SENT)"));
-							//feature.add(this._param_g.toFeature(network,  lang_dependent +item[0] + item[2], "[" + NE + "_VOLITIONAL," + Sent + "]",   "_link(NE,SENT)"));
+							//feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +item[0] + item[2], "[" + Sent + "]",   "_sent(SENT)"));
+							//feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +item[0] + item[2], "[" + NE + "_VOLITIONAL," + Sent + "]",   "_link(NE,SENT)"));
 							
 							
 						}*/
 					}
 
 					//feature.add(new String[]{"sent", "[" + NE + "_VOLITIONAL," + Sent + "]", "_link(NE,SENT)"});
-					//feature.add(this._param_g.toFeature(network,  lang_dependent +"sent", "[" + NE + "_VOLITIONAL," + Sent + "]", "_link(NE,SENT)"));
+					//feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +"sent", "[" + NE + "_VOLITIONAL," + Sent + "]", "_link(NE,SENT)"));
 					
 					
 				}
@@ -381,99 +381,99 @@ public class TargetSentimentFeatureManager extends LinearFeatureManager {
 		
 		if (subnode_parent == SubNodeType.B.ordinal() && subnode_child == SubNodeType.e.ordinal())
 		{
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start_Feature", "", ""));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start_Feature", "", ""));
 			
 			if (polar_parent < 2)
 			{
-				feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_sentiment_Feature", "", ""));
+				feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_sentiment_Feature", "", ""));
 			}
 			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start" , "", "current_word:" +word_parent));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start" , "" , "current_word:" +word_parent + "|||" + "next_word:" +next_feature));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start" , "" , "last_word:" +prev_feature + "|||" + "current_word:" +word_parent));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start" , "" , "last_word:" +prev_feature + "|||" + "current_word:" +word_parent + "|||" + "next_word:" + next_feature));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start" , "", "current_word:" +word_parent));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start" , "" , "current_word:" +word_parent + "|||" + "next_word:" +next_feature));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start" , "" , "last_word:" +prev_feature + "|||" + "current_word:" +word_parent));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start" , "" , "last_word:" +prev_feature + "|||" + "current_word:" +word_parent + "|||" + "next_word:" + next_feature));
 			
 			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "|||" + next_brown_cluster));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() , "current_word:" +  word_parent + "-jerboa:" +  current_jerboa));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "|||" + next_brown_cluster));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() , "current_word:" +  word_parent + "-jerboa:" +  current_jerboa));
 			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() ,"current_word:" +  word_parent));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() ,  "last_word:" + prev_feature + "|||" + "current_word:" + word_parent));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() ,"current_word:" +  word_parent));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() ,  "last_word:" + prev_feature + "|||" + "current_word:" + word_parent));
 			
 
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "next_word:" +  next_feature));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "next_word:" +  next_feature));
 			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() ,  "last_word:" + prev_feature + "|||" + "current_word:" + word_parent + "next_word:" +  next_feature));
-			
-			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() ,  "current_previous_polarity:" + previous_polarity[1]));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() ,  "last_word:" + prev_feature + "|||" + "current_word:" + word_parent + "next_word:" +  next_feature));
 			
 			
-			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() ,  "current_ther_sentiment_polarity:" + ther_sentiment_polarity[1]));
-			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() , "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() ,  "current_previous_polarity:" + previous_polarity[1]));
 			
 			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Start" , "", "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_contains" , "", "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
+			
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() ,  "current_ther_sentiment_polarity:" + ther_sentiment_polarity[1]));
+			
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start" , PolarityType.values()[polar_parent].name() , "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
+			
+			
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Start" , "", "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_contains" , "", "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
 			
 			
 		
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_contains" , "", "current_word:" + word_parent ));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent ));		
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() ,  "last_word:" + prev_feature + "|||" + "current_word:" +  word_parent + "|||" + "next_word:" +  next_feature));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_contains" , "", "current_word:" + word_parent ));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent ));		
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() ,  "last_word:" + prev_feature + "|||" + "current_word:" +  word_parent + "|||" + "next_word:" +  next_feature));
 			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
 			
-			//feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() ,  "current_ther_sentiment_polarity:" + ther_sentiment_polarity[1]));
+			//feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() ,  "current_ther_sentiment_polarity:" + ther_sentiment_polarity[1]));
 			
 			
 		} else if (subnode_parent == SubNodeType.e.ordinal() && subnode_child == SubNodeType.e.ordinal()) {
 			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Continue" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_Continue" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "|||" + "next_word:" + next_feature));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Continue" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_Continue" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "|||" + "next_word:" + next_feature));
 			
 			
 			
 			if (polar_parent < 2)
 			{
-				feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_sentiment_Feature", "", ""));
+				feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_sentiment_Feature", "", ""));
 			}
 			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_contains" , "", "current_word:" +word_parent ));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() , "current_word:" +word_parent ));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_contains" , "", "current_word:" +word_parent ));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() , "current_word:" +word_parent ));
 			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Bigram + "-" + "NE_contains" , "", "current_word:" +word_parent + "|||" + "next_word:" + word_child ));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Bigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() ,"current_word:" + word_parent + "|||" + "next_word:" + word_child ));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Bigram + "-" + "NE_contains" , "", "current_word:" +word_parent + "|||" + "next_word:" + word_child ));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Bigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() ,"current_word:" + word_parent + "|||" + "next_word:" + word_child ));
 			
-			//feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_sentiment" , "", PolarityType.values()[polar_parent].name() ));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
+			//feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_sentiment" , "", PolarityType.values()[polar_parent].name() ));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
 			
 			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_contains" , "", "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_contains" , "", "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
 			
 			
 		} else if (subnode_parent == SubNodeType.e.ordinal() && subnode_child == SubNodeType.A.ordinal()) {
 			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_End" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent ));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_End" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "|||" + "next_word:" + next_feature));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_End" , PolarityType.values()[polar_parent].name(), "last_word:" + prev_feature +"|||" + "current_word:" + word_parent ));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_End" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent ));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_End" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "|||" + "next_word:" + next_feature));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_End" , PolarityType.values()[polar_parent].name(), "last_word:" + prev_feature +"|||" + "current_word:" + word_parent ));
 			
 			
 			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_contains" , "", word_parent ));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() , "current_word:" +word_parent ));
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() , "current_word:" +word_parent + "|||" + "next_word:" + next_feature));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_contains" , "", word_parent ));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() , "current_word:" +word_parent ));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() , "current_word:" +word_parent + "|||" + "next_word:" + next_feature));
 			
 			
-			//feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_sentiment" , "", PolarityType.values()[polar_parent].name() ));
+			//feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_sentiment" , "", PolarityType.values()[polar_parent].name() ));
 			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_contains" , PolarityType.values()[polar_parent].name() , "current_word:" + word_parent + "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
 			
 			
-			feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "NE_contains" , "", "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
+			feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "NE_contains" , "", "first_letter_upper:" +  Character.isUpperCase(word_parent.charAt(0))));
 			
 		}
 		
@@ -483,18 +483,18 @@ public class TargetSentimentFeatureManager extends LinearFeatureManager {
 			if (!TargetSentimentGlobal.WITHOUT_HIDDEN_SENTIMENT)
 			{
 			
-				feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name()+"_Before", "current_word:" +word_parent ));
-				feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name(), "current_word:" +word_parent ));
-				//feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name(),   "current_word:" +word_parent + "|||" +  "next_word:" +next_feature ));
+				feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name()+"_Before", "current_word:" +word_parent ));
+				feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name(), "current_word:" +word_parent ));
+				//feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name(),   "current_word:" +word_parent + "|||" +  "next_word:" +next_feature ));
 			
 				//new
 				if (!previous_polarity[1].equals("_") && previous_polarity[1].toLowerCase().contains(PolarityType.values()[polar_parent].name()))
 				{
-					feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name() ,  "current_previous_polarity:" + previous_polarity[1]));
+					feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name() ,  "current_previous_polarity:" + previous_polarity[1]));
 				}
 				//???
 				if (!ther_sentiment_polarity[1].equals("_"))
-					feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name() ,  "current_ther_sentiment_polarity:" + ther_sentiment_polarity[1]));
+					feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name() ,  "current_ther_sentiment_polarity:" + ther_sentiment_polarity[1]));
 			
 			}
 		}
@@ -503,23 +503,23 @@ public class TargetSentimentFeatureManager extends LinearFeatureManager {
 			if (!TargetSentimentGlobal.WITHOUT_HIDDEN_SENTIMENT)
 			{
 			
-				feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name()+"_After","current_word:" + word_parent  ));
-				feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name(),"current_word:" + word_parent  ));
-				//feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name(),   "current_word:" +word_parent + "|||" +  "next_word:" + next_feature ));
+				feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name()+"_After","current_word:" + word_parent  ));
+				feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name(),"current_word:" + word_parent  ));
+				//feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name(),   "current_word:" +word_parent + "|||" +  "next_word:" + next_feature ));
 			
 			
 				//new
 				if (!previous_polarity[1].equals("_") && previous_polarity[1].toLowerCase().contains(PolarityType.values()[polar_parent].name()))
-					feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name() ,  "current_previous_polarity:" + previous_polarity[1]));
+					feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name() ,  "current_previous_polarity:" + previous_polarity[1]));
 				//????
 				if (!ther_sentiment_polarity[1].equals("_"))
-					feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name() ,  "current_ther_sentiment_polarity:" + ther_sentiment_polarity[1]));
+					feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment" , PolarityType.values()[polar_parent].name() ,  "current_ther_sentiment_polarity:" + ther_sentiment_polarity[1]));
 			}
 		} else if (subnode_parent == SubNodeType.A.ordinal() && subnode_child == SubNodeType.B.ordinal())
 		{
-			//feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment_change" , PolarityType.values()[polar_child].name(), PolarityType.values()[polar_parent].name() ));
-			//feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment_change" ,  PolarityType.values()[polar_parent].name(),PolarityType.values()[polar_child].name() ));
-			//feature.add(this._param_g.toFeature(network,  lang_dependent +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment_change" , PolarityType.values()[polar_parent].name() + "|||" + PolarityType.values()[polar_child].name(),  word_parent + "|||" + next_feature ));
+			//feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment_change" , PolarityType.values()[polar_child].name(), PolarityType.values()[polar_parent].name() ));
+			//feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment_change" ,  PolarityType.values()[polar_parent].name(),PolarityType.values()[polar_child].name() ));
+			//feature.add(this._param_g.toFeature(network,  shareFeatures_suffix +FEATURE_TYPES.Unigram + "-" + "O_hidden_sentiment_change" , PolarityType.values()[polar_parent].name() + "|||" + PolarityType.values()[polar_child].name(),  word_parent + "|||" + next_feature ));
 			
 		}
 		
@@ -576,7 +576,7 @@ public class TargetSentimentFeatureManager extends LinearFeatureManager {
 				{
 					for(int i = 0; i < TargetSentimentGlobal.Word2Vec.ShapeSize; i++)
 					{
-						f[normal_feature_size + i] = this._param_g.toFeature(network, lang_dependent + TargetSentimentGlobal.Word2Vec.WORD_EMBEDDING_FEATURE, Out, "" + i);					
+						f[normal_feature_size + i] = this._param_g.toFeature(network, shareFeatures_suffix + TargetSentimentGlobal.Word2Vec.WORD_EMBEDDING_FEATURE, Out, "" + i);					
 						fv[normal_feature_size + i] = (double)vector[i];
 					}
 				}
