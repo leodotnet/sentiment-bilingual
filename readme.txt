@@ -1,13 +1,13 @@
 ================================================================================
 =============================== README GUIDE ===================================
 ================================================================================
-
  
  
 Configurable input parameters to CRF system are:
  
-1) To use Shared or Independent features. Param is:
-- SHARE_FEATURES = true means feature-sharing; SHARE_FEATURES = false, which is a default value, means there is no feature-sharing
+1) To use Shared or Independent features. Param (flag) is:
+- SHARE_FEATURES (SHARE_FEATURES = true means feature-sharing; SHARE_FEATURES = false, which is a default value, means there is no feature-sharing)
+to enable it, just add 	flagSet.add("SHARE_FEATURES"); so as the flags in 2.1 and 3.
  
 2) To use embedding or no embedding. Param is:
 - TargetSentimentGlobal.ENABLE_WORD_EMBEDDING = true/false
@@ -19,5 +19,8 @@ Configurable input parameters to CRF system are:
  
 3) To train using only target language data (translated from source language) while ignoring source language training data. Param is:
 - ONLY_TARGET_LANG (ONLY_TARGET_LANG = true means to train strictly using only the translated target language data)
+
+
+4) To using bilingual setting, set lang = "bilingual_es2en";  es is the source language, en is the target language.
  
 ================================================================================
