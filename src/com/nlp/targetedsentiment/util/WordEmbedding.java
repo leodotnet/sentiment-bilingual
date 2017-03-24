@@ -137,8 +137,11 @@ public class WordEmbedding {
 		else if (lang.equals("en_googlenews"))
 			this.getWord2VecEnglish_googlenews();
 		else if (lang.startsWith("bilingual"))
+		{
 			//getWord2VecSpanish();
-			this.getWord2VecBilingual();
+			String[] biling_arr = lang.split("_");
+			this.getWord2VecBilingual(biling_arr[1], biling_arr[2]);
+		}
 		System.out.println("Word Embedding Loaded");
 		
 			
@@ -190,9 +193,9 @@ public class WordEmbedding {
 		return this.word2vec;
 	}
 	
-	public HashMap<String, double[]> getWord2VecBilingual() {
+	public HashMap<String, double[]> getWord2VecBilingual(String lang1, String lang2) {
 		SEPARATOR = " ";
-		return getWord2Vec("models//out.en_es");
+		return getWord2Vec("models//out." + lang1 + "_" + lang2);
 		/*
 		try {
 			loadModel("models//out.de.bin");
